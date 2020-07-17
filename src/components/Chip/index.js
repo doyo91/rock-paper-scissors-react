@@ -4,11 +4,11 @@ import styled from "styled-components";
 const ChipStyled = styled.div`
   width: 130px;
   height: 125px;
-  border: 16px solid ${(props) => props.color.base};
+  /* padding: ${({ name }) => (name === "default" ? "16px" : "0")}; */
+  border: 16px solid ${({ color }) => color.base};
   border-radius: 50%;
   display: flex;
-  background: white;
-  box-shadow: 0 5px 0 ${(props) => props.color.base};
+  box-shadow: 0 5px 0 ${({ color }) => color.base};
   cursor: pointer;
   position: relative;
   z-index: 2;
@@ -18,7 +18,8 @@ const ChipStyled = styled.div`
   }
 
   .box {
-    box-shadow: 0 -4px 0 #babfd4;
+    background: ${({ name }) => (name === "default" ? "#122343" : "white")};
+    box-shadow: 0 -4px 0 ${({ name }) => (name === "default" ? "transparent" : "#babfd4")};
     flex: 1;
     display: flex;
     justify-content: center;
@@ -41,11 +42,21 @@ const colors = {
     base: "#eca81e",
     border: "#c76c14",
   },
+  default: {
+    base: "transparent",
+    border: "transparent",
+  },
 };
 
-export const Chip = ({ name }) => {
+export const Chip = ({ name = "default", onClick }) => {
+  function handleClick() {
+    onClick(name);
+  }
+
+  const color = colors[name];
+
   return (
-    <ChipStyled color={colors[name]}>
+    <ChipStyled color={color} onClick={handleClick} name={name}>
       <div className="box">
         <img src={`./assets/images/icon-${name}.svg`} alt="" />
       </div>

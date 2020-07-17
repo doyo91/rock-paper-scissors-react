@@ -15,10 +15,16 @@ const ButtonStyled = styled.div`
 `;
 
 
-export const Button = ({...props}) => {
+export const Button = ({children, ...props}) => {
   return (
     <ButtonStyled  {...props}>
-      Rules
+      {children}
     </ButtonStyled>
   );
 };
+
+export const WhiteButton = styled(ButtonStyled)`
+  background: white;
+  color: #101a3f;
+  min-width: 220px;
+`;
