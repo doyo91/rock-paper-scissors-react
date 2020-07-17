@@ -19,7 +19,8 @@ const ChipStyled = styled.div`
 
   .box {
     background: ${({ name }) => (name === "default" ? "#122343" : "white")};
-    box-shadow: 0 -4px 0 ${({ name }) => (name === "default" ? "transparent" : "#babfd4")};
+    box-shadow: 0 -4px 0 ${({ name }) =>
+      name === "default" ? "transparent" : "#babfd4"};
     flex: 1;
     display: flex;
     justify-content: center;
@@ -50,7 +51,9 @@ const colors = {
 
 export const Chip = ({ name = "default", onClick }) => {
   function handleClick() {
-    onClick(name);
+    if (onClick) {
+      onClick(name);
+    }
   }
 
   const color = colors[name];

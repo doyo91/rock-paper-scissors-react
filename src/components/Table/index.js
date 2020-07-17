@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 
 import { Chip } from "components/Chip";
 import { WhiteButton } from "components/Button";
+import { ScoreContext } from "context/ScoreContext";
 
 const TableStyled = styled.div`
   display: grid;
@@ -74,6 +75,7 @@ export const Table = () => {
   const [playing, setPlaying] = useState(false);
   const [pick, setPick] = useState("");
   const [results, setResults] = useState("");
+  const { score, setScore } = useContext(ScoreContext);
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -102,6 +104,9 @@ export const Table = () => {
     const house = await launchHousePick();
     const results = playResults(name, house);
     setResults(results);
+    if(results === 'win') {
+      setScore(score + 1);
+    }
   }
 
   function playResults(pick, housePick) {
