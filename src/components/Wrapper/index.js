@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const WrapperStyled = styled.div`
     max-width: 700px;
-    margin: auto
+    margin: auto;
 `
 
 export const Wrapper = ({children}) => {

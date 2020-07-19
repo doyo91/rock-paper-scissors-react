@@ -1,6 +1,6 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import {ScoreContext} from 'context/ScoreContext'
+import { ScoreContext } from "context/ScoreContext";
 
 const ScoreStyled = styled.div`
   background: white;
@@ -20,20 +20,17 @@ const ScoreStyled = styled.div`
     font-size: 40px;
     margin: 0;
     font-weight: 700;
-    letter-spacing: -5px;
     position: relative;
-    left: -2.5px;
   }
 
   @media screen and (min-width: 768px) {
     width: 150px;
     small {
-      font-size:16px;
+      font-size: 16px;
     }
 
     p {
       font-size: 60px;
-      
     }
   }
 `;

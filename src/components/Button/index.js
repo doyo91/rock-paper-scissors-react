@@ -4,9 +4,9 @@ import styled from "styled-components";
 const ButtonStyled = styled.div`
   display: inline-flex;
   border: 1px solid white;
-  border-radius: 0.5em;
+  border-radius: .5em;
   min-width: 128px;
-  padding: 0.7em;
+  padding: .7em;
   justify-content: center;
   cursor: pointer;
   text-transform: uppercase;

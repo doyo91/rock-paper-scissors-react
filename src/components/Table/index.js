@@ -47,7 +47,7 @@ const TableStyled = styled.div`
     &::before {
       content: "";
       height: 14px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.2);
       position: absolute;
       left: 0;
       right: 0;
@@ -58,7 +58,7 @@ const TableStyled = styled.div`
     &::after {
       content: "";
       height: 14px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.2);
       position: absolute;
       left: 0;
       right: 0;
@@ -68,12 +68,36 @@ const TableStyled = styled.div`
     }
   }
 
-  @media screen and (min-width: 768px) {
-    grid-gap: 30px 140px;
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: 300px 300px;
+    ${({ playing, results }) =>
+      (playing && results) && "grid-template-columns: 300px 110px 110px 300px;"}
 
+    & div:nth-of-type(3) {
+      ${({ playing, results }) =>
+        (playing && results) && "grid-column: 2 / 4; grid-row: 1;"}
+    }
     .line {
-      width: 350px;
-      top: 100px;
+      width: 300px;
+    }
+    .results {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .in-game {
+      font-size: 1.2em;
+      display: flex;
+      flex-direction: column;
+      > div {
+        order: 2;
+      }
+      > p {
+        order: 1;
+        margin-bottom: 2em;
+      }
     }
   }
 `;
@@ -104,7 +128,6 @@ export const Table = () => {
         resolve(pick);
       }, 2000);
     });
-    // return elements[getRandomInt(0, 3)];
   }
 
   async function onClick(name) {
@@ -120,7 +143,6 @@ export const Table = () => {
   }
 
   function playResults(pick, housePick) {
-    console.log(housePick);
     if (housePick === pick) {
       return "draw";
     }
@@ -160,7 +182,7 @@ export const Table = () => {
   }
 
   return (
-    <TableStyled playing={playing}>
+    <TableStyled playing={playing} results={(results !== "") ? 1 : undefined}>
       <span className="line"></span>
       {!playing ? (
         <>
@@ -171,11 +193,19 @@ export const Table = () => {
       ) : (
         <>
           <div className="in-game">
-            <Chip name={pick} isShadowAnimated={results === "win"} />
+            <Chip
+              playing={playing}
+              name={pick}
+              isShadowAnimated={results === "win"}
+            />
             <p>You Picked</p>
           </div>
           <div className="in-game">
-            <Chip name={housePick} isShadowAnimated={results === "lose"} />
+            <Chip
+              playing={playing}
+              name={housePick}
+              isShadowAnimated={results === "lose"}
+            />
             <p>The house Picked</p>
           </div>
           <div className="results">
