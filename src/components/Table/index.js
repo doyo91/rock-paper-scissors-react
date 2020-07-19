@@ -31,6 +31,8 @@ const TableStyled = styled.div`
 
     h2 {
       text-transform: uppercase;
+      font-size: 56px;
+      margin: 10px;
     }
   }
 
@@ -39,9 +41,8 @@ const TableStyled = styled.div`
     height: 14px;
     background: rgba(0, 0, 0, 0.2);
     position: absolute;
-    left: 60px;
+    width: 220px;
     top: 58px;
-    right: 60px;
 
     &::before {
       content: "";
@@ -64,6 +65,15 @@ const TableStyled = styled.div`
       top: 0;
       transform: rotate(-55deg);
       transform-origin: right top;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-gap: 30px 140px;
+
+    .line {
+      width: 350px;
+      top: 100px;
     }
   }
 `;
@@ -104,7 +114,7 @@ export const Table = () => {
     const house = await launchHousePick();
     const results = playResults(name, house);
     setResults(results);
-    if(results === 'win') {
+    if (results === "win") {
       setScore(score + 1);
     }
   }
@@ -146,6 +156,7 @@ export const Table = () => {
 
   function handleTryAgainClick() {
     setPlaying(false);
+    setResults("");
   }
 
   return (
@@ -160,16 +171,22 @@ export const Table = () => {
       ) : (
         <>
           <div className="in-game">
-            <Chip name={pick} />
+            <Chip name={pick} isShadowAnimated={results === "win"} />
             <p>You Picked</p>
           </div>
           <div className="in-game">
-            <Chip name={housePick} />
+            <Chip name={housePick} isShadowAnimated={results === "lose"} />
             <p>The house Picked</p>
           </div>
           <div className="results">
-            <h2>You {results}</h2>
-            <WhiteButton onClick={handleTryAgainClick}>Try Again</WhiteButton>
+            {results && (
+              <>
+                <h2>You {results}</h2>
+                <WhiteButton onClick={handleTryAgainClick}>
+                  Try Again
+                </WhiteButton>
+              </>
+            )}
           </div>
         </>
       )}

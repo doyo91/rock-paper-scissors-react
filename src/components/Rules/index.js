@@ -32,6 +32,14 @@ const RulesStyled = styled.div`
           cursor: pointer;
       }
   }
+
+  @media screen and (min-width: 1024px) {
+    .button {
+      position:fixed;
+      right: 2em;
+      bottom: 2em;
+    }
+  }
 `;
 
 
@@ -53,7 +61,7 @@ export const Rules = () => {
                 </div>
             )
         }
-      <Button onClick={handleToggleClick}>Rules</Button>
+      <Button className="button" onClick={handleToggleClick}>Rules</Button>
     </RulesStyled>
   );
 };
